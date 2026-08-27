@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Fetch the latest code from the repository
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Setup node environment
+    - name: Set up node
+      uses: actions/setup-node@v7
+      with:
+        node-version: 20.20.2
+
+    # 3. install all dependencies
+    - name: Install
+      run: npm ci
+
+    # 4. Build the app
+    - name: Build app
+      run: npm run build
